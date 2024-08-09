@@ -13,7 +13,7 @@ void main() {
 class MyApp extends StatelessWidget {
   Future<List<User>> fetchUsers() async {
     final response =
-        await http.get(Uri.parse('https://reqres.in/api/users?page=2'));
+        await http.get(Uri.parse('https://ws.jakarta.go.id/gateway/DataPortalSatuDataJakarta/1.0/satudata?kategori=dataset&tipe=detail&url=indeks-kepuasan-layanan-penunjang-urusan-pemerintahan-daerah-pada-dinas-pariwisata-dan-ekonomi-kreatif'));
     if (response.statusCode == 200) {
       final List<dynamic> data = json.decode(response.body)['data'];
       return data.map((user) => User.fromJson(user)).toList();
@@ -37,8 +37,8 @@ class MyApp extends StatelessWidget {
             itemBuilder: (context, index) {
               final user = users[index];
               return ListTile(
-                title: Text(user.firstName),
-                subtitle: Text(user.email),
+                title: Text(user.periode_data),
+                subtitle: Text(user.jenis_layanan),
               );
             },
           );
@@ -49,13 +49,13 @@ class MyApp extends StatelessWidget {
 }
 
 class User {
-  final String firstName;
-  final String email;
-  User({required this.firstName, required this.email});
+  final String periode_data;
+  final String jenis_layanan;
+  User({required this.periode_data, required this.jenis_layanan});
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      firstName: json['first_name'],
-      email: json['email'],
+      periode_data: json['periode_data'],
+      jenis_layanan: json['jenis_layanan'],
     );
   }
 }
